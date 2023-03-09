@@ -10,6 +10,7 @@ namespace TicTacToe
         {
             services.AddScoped<IGameRepo, GameRepo>();
             services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IResultService, ResultService>();
         }
     }
 }

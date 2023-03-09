@@ -10,9 +10,11 @@ namespace TicTacToe.Controllers
     public class GameController : ControllerBase
     {
         private readonly IGameService _game;
-        public GameController(IGameService game)
+        private readonly IResultService _result;
+        public GameController(IGameService game, IResultService result)
         {
             _game = game;
+            _result = result;
         }
 
         [HttpGet("{id}")]
@@ -25,15 +27,21 @@ namespace TicTacToe.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> StepAsync([FromRoute]int id, [FromBody]Step step)
+        public async Task<IActionResult> StepAsync([FromRoute] int id, [FromBody] Step step)
         {
-            var stepSuccess = await _game.StepAsync(id, step);
-            if (stepSuccess)
+            var response = await _game.StepAsync(id, step);
+            if (response.Item1 == true)
             {
-                var gameTable = await _game.SelectByIdAsync(id);
-                return Ok(gameTable);
+                return Ok();
             }
-            return BadRequest();
+            else
+            {
+                return BadRequest();
+            }
+
+            
+            
+            
         }
     }
 }

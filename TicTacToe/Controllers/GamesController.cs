@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TicTacToe.Domain.Dtos;
 using TicTacToe.Service.Services;
 
 namespace TicTacToe.Controllers
@@ -23,10 +22,10 @@ namespace TicTacToe.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody]GameDto model)
+        public async Task<IActionResult> CreateAsync()
         {
-            await _game.AddAsync(model);
-            return Ok(model);
+            await _game.AddAsync();
+            return Ok();
         }
     }
 }

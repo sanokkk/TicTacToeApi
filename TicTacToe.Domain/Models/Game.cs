@@ -12,10 +12,10 @@ namespace TicTacToe.Domain.Models
 
         public Player[] Table { get; set; }
 
-        public string FirstPlayer { get; set; }
+        public Player Winner { get; set; }
 
-        public string SecondPlayer { get; set; }
+        public Player LastStep { get; set; }
 
-        public string Winner { get; set; }
+
     }
 }

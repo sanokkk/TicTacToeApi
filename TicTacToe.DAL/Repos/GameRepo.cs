@@ -33,7 +33,13 @@ namespace TicTacToe.DAL.Repos
             return await _db.Games.ToArrayAsync();
         }
 
-        
+        public async Task<Game> SetWinner(Game game, Player winner)
+        {
+            game.Winner = winner;
+            await _db.SaveChangesAsync();
+            return game;
+        }
+
         public async Task<Game> StepAsync(Game game, Player[] table)
         {
             game.Table = table;

@@ -26,10 +26,11 @@ namespace TicTacToe.DAL
             builder.Entity<Game>().ToTable("games");
             builder.Entity<Game>().HasKey(k => k.Id);
             builder.Entity<Game>().Property(p => p.Id).HasColumnName("id");
-            builder.Entity<Game>().Property(p => p.FirstPlayer).HasColumnName("first_player").IsRequired();
-            builder.Entity<Game>().Property(p => p.SecondPlayer).HasColumnName("second_player").IsRequired();
+            //builder.Entity<Game>().Property(p => p.FirstPlayer).HasColumnName("first_player").IsRequired();
+            //builder.Entity<Game>().Property(p => p.SecondPlayer).HasColumnName("second_player").IsRequired();
             builder.Entity<Game>().Property(p => p.Table).HasColumnName("table").IsRequired();
-            builder.Entity<Game>().Property(p => p.Winner).HasColumnName("winner").IsRequired(false);
+            builder.Entity<Game>().Property(p => p.Winner).HasColumnName("winner");
+            builder.Entity<Game>().Property(p => p.LastStep).HasColumnName("last_step");
         }
     }
 }
