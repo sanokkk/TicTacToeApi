@@ -17,6 +17,8 @@ namespace TicTacToe.Service.Services
     }
     public class GameService:IGameService
     {
+        const int ARRAY_SIZE = 9;
+        const int DOUBLY_ARRAY_SIZE = 3;
         private readonly IGameRepo _game;
         private readonly IResultService _result;
         public GameService(IGameRepo game, IResultService result)
@@ -87,7 +89,7 @@ namespace TicTacToe.Service.Services
         private static Player[][] GetDoublyArray(Player[] arr)
         {
             int position = 0;
-            var gameTable = new Player[3][];
+            var gameTable = new Player[DOUBLY_ARRAY_SIZE][];
             for (int i = 0; i < 3; i++)
             {
                 gameTable[i] = new Player[3];
@@ -101,7 +103,7 @@ namespace TicTacToe.Service.Services
         }
         private static Player[] GetArray(Player[][] arr)
         {
-            var GameArray = new Player[9];
+            var GameArray = new Player[ARRAY_SIZE];
             int position = 0;
             for (int i = 0; i < arr.Length; i++)
             {
