@@ -30,7 +30,7 @@ public class GameService:IGameService
         var table = GetDoublyArray(game.Table);
         if (_result.IsGameFinished(table).Item1)
         {
-            return await IfStepIsntDone(table, game);
+            return await IfStepIsFinally(table, game, 1);
         }
 
         if (table[step.Row][step.Column] != Player.None)
@@ -48,7 +48,7 @@ public class GameService:IGameService
         game.Winner = Result.NotFinished;
         if (_result.IsGameFinished(table).Item1)
         {
-            return await IfStepIsFinally(table, game);
+            return await IfStepIsFinally(table, game, 2);
         }
         await _game.StepAsync(game, GetArray(table));
 
@@ -89,25 +89,16 @@ public class GameService:IGameService
     private CurrGame MapToCurrGame(Game game) => 
         new CurrGame() { Id = game.Id, Winner = game.Winner, LastStep = game.LastStep, Table = GetDoublyArray(game.Table) };
     
-
-    private async Task<StepStatus> IfStepIsntDone(Player[][] table, Game game)
+    private async Task<StepStatus> IfStepIsFinally(Player[][] table, Game game, int scenario)
     {
         var res = _result.IsGameFinished(table).Item2;
         var Winner = (res == Result.X) ? Result.X : (res == Result.O) ? Result.O : Result.Draw;
         var newTable = GetArray(table);
         await _game.StepAsync(game, newTable);
         await _game.SetWinner(game, Winner);
-        return new StepStatus() { IsDone = false, Result = (res == Result.X) ? Result.X : (res == Result.O) ? Result.O : Result.Draw };
-    }
 
-    private async Task<StepStatus> IfStepIsFinally(Player[][] table, Game game)
-    {
-        var res = _result.IsGameFinished(table).Item2;
-        var Winner = (res == Result.X) ? Result.X : (res == Result.O) ? Result.O : Result.Draw;
-        var newTable = GetArray(table);
-        await _game.StepAsync(game, newTable);
-        await _game.SetWinner(game, Winner);
-        return new StepStatus() { IsDone = true, Result = (res == Result.X) ? Result.X : (res == Result.O) ? Result.O : Result.Draw };
+        return (scenario == 2)?new StepStatus() { IsDone = true, Result = (res == Result.X) ? Result.X : (res == Result.O) ? Result.O : Result.Draw }
+        : new StepStatus() { IsDone = false, Result = (res == Result.X) ? Result.X : (res == Result.O) ? Result.O : Result.Draw };
     }
 
 
