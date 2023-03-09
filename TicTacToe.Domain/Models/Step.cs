@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace TicTacToe.Domain.Models;
 
-namespace TicTacToe.Domain.Models
+public class Step
 {
-    public class Step
-    {
-        public int Row { get; set; }
+    public int Row { get; init; }
 
-        public int Column { get; set; }
+    public int Column { get; init; }
 
-        public Player Player { get; set; }
-    }
+    public Player Player { get; init; }
 }

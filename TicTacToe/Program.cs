@@ -2,6 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using TicTacToe;
 using TicTacToe.DAL;
+using TicTacToe.DAL.Interfaces;
+using TicTacToe.DAL.Repos;
+using TicTacToe.Service.Interfaces;
+using TicTacToe.Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +18,10 @@ builder.Services.AddSwaggerGen();
 var connections = builder.Configuration.GetConnectionString("Pg");
 builder.Services.AddDbContext<ApplicationContext>(o => o.UseNpgsql(connections));
 
-builder.Services.AddScopes();
+builder.Services.AddScoped<IGameRepo, GameRepo>();
+builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<IResultService, ResultService>();
+
 
 builder.Services.AddControllers();
 

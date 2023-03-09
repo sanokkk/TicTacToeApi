@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TicTacToe.Domain.Models;
+﻿using TicTacToe.Domain.Models;
 
-namespace TicTacToe.DAL.Interfaces
+namespace TicTacToe.DAL.Interfaces;
+
+public interface IGameRepo: IBaseRepo<Game>
 {
-    public interface IGameRepo: IBaseRepo<Game>
-    {
-        Task<Game> StepAsync(Game game, Player[] table);
-        Task<Game> SetWinner(Game game, Player winner);
-    }
+    Task<Game> StepAsync(Game game, Player[] table);
+    Task<Game> SetWinner(Game game, Result winner);
 }

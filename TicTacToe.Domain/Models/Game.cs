@@ -1,21 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace TicTacToe.Domain.Models;
 
-namespace TicTacToe.Domain.Models
+public class Game
 {
-    public class Game
+    public int Id { get; set; }
+
+    public Player[] Table { get; set; }
+
+    public Result Winner { get; set; }
+
+    public Player LastStep { get; set; }
+
+    public static Game CreateEmpty()
     {
-        public int Id { get; set; }
-
-        public Player[] Table { get; set; }
-
-        public Player Winner { get; set; }
-
-        public Player LastStep { get; set; }
-
-
+        var table = new Player[9];
+        for (int i = 0; i < 9; i++)
+            table[i] = Player.None;
+        var game = new Game()
+        {
+            Table = table,
+            Winner = Result.NotFinished
+        };
+        return game;
     }
+
 }
