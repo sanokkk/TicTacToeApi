@@ -1,0 +1,36 @@
+version: '3.4'
+
+networks:
+  tictactoenetwork:
+
+services:
+  TicTacDb:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "1"
+      POSTGRES_DB: "TicTacDb"  
+    ports:
+     - "5432" 
+    networks:
+      - tictactoenetwork
+
+  tictactoe:
+    image: ${DOCKER_REGISTRY-}tictactoe
+    build:
+      context: .
+      dockerfile: TicTacToe/Dockerfile
+    ports:
+      - 8080:80
+    depends_on:
+      - TicTacDb
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "1"
+      POSTGRES_DB: "TicTacDb"              
+    networks:
+      - tictactoenetwork
+
+   
+    
